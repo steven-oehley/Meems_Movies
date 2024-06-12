@@ -8,18 +8,20 @@ export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   return (
     <div className="min-h-screen bg-pink-900 text-white p-6">
-      <Navbar movies={movies} />
+      <Navbar>
+        <Logo />
+        <SearchBar />
+        <NumResults movies={movies} />
+      </Navbar>
       <Main movies={movies} />
     </div>
   );
 }
 
-function Navbar({ movies }) {
+function Navbar({ children }) {
   return (
     <nav className="grid grid-cols-3 items-center h-18 px-8 py-4 bg-pink-600 rounded-lg">
-      <Logo />
-      <SearchBar />
-      <NumResults movies={movies} />
+      {children}
     </nav>
   );
 }
