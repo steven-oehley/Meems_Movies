@@ -6,6 +6,7 @@ const average = (arr) =>
 
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
+  const [watched, setWatched] = useState(tempWatchedData);
   return (
     <div className="min-h-screen bg-pink-900 text-white p-6">
       <Navbar>
@@ -14,10 +15,13 @@ export default function App() {
         <NumResults movies={movies} />
       </Navbar>
       <Main>
-        <ListBox>
+        <Box>
           <MovieList movies={movies} />
-        </ListBox>
-        <WatchedBox />
+        </Box>
+        <Box>
+          <WatchedSummary watched={watched} />
+          <WatchedList watched={watched} />
+        </Box>
       </Main>
     </div>
   );
@@ -63,17 +67,56 @@ function SearchBar() {
   );
 }
 
-function ListBox({ children }) {
-  const [isOpen1, setIsOpen1] = useState(true);
+// function ListBox({ children }) {
+//   const [isOpen1, setIsOpen1] = useState(true);
+//   return (
+//     <div className="relative w-[42rem] max-w-[42rem] bg-gray-800 rounded-lg overflow-auto">
+//       <button
+//         className="absolute top-2 right-2 h-6 w-6 rounded-full bg-gray-900 text-white font-bold cursor-pointer z-10"
+//         onClick={() => setIsOpen1((open) => !open)}
+//       >
+//         {isOpen1 ? "–" : "+"}
+//       </button>
+//       {isOpen1 && children}
+//     </div>
+//   );
+// }
+
+// function WatchedBox() {
+//   const [watched, setWatched] = useState(tempWatchedData);
+//   const [isOpen2, setIsOpen2] = useState(true);
+
+//   return (
+//     <div className="relative w-[42rem] max-w-[42rem] bg-gray-800 rounded-lg overflow-auto">
+//       <button
+//         className="absolute top-2 right-2 h-6 w-6 rounded-full bg-gray-900 text-white font-bold cursor-pointer z-10"
+//         onClick={() => setIsOpen2((open) => !open)}
+//       >
+//         {isOpen2 ? "–" : "+"}
+//       </button>
+//       {isOpen2 && (
+//         <>
+//           <WatchedSummary watched={watched} />
+//           <WatchedList watched={watched} />
+//         </>
+//       )}
+//     </div>
+//   );
+// }
+
+// list box and watch box could become one reusable component
+
+function Box({ children }) {
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <div className="relative w-[42rem] max-w-[42rem] bg-gray-800 rounded-lg overflow-auto">
       <button
         className="absolute top-2 right-2 h-6 w-6 rounded-full bg-gray-900 text-white font-bold cursor-pointer z-10"
-        onClick={() => setIsOpen1((open) => !open)}
+        onClick={() => setIsOpen((open) => !open)}
       >
-        {isOpen1 ? "–" : "+"}
+        {isOpen ? "–" : "+"}
       </button>
-      {isOpen1 && children}
+      {isOpen && children}
     </div>
   );
 }
@@ -107,28 +150,6 @@ function Movie({ movie }) {
         </p>
       </div>
     </li>
-  );
-}
-
-function WatchedBox() {
-  const [watched, setWatched] = useState(tempWatchedData);
-  const [isOpen2, setIsOpen2] = useState(true);
-
-  return (
-    <div className="relative w-[42rem] max-w-[42rem] bg-gray-800 rounded-lg overflow-auto">
-      <button
-        className="absolute top-2 right-2 h-6 w-6 rounded-full bg-gray-900 text-white font-bold cursor-pointer z-10"
-        onClick={() => setIsOpen2((open) => !open)}
-      >
-        {isOpen2 ? "–" : "+"}
-      </button>
-      {isOpen2 && (
-        <>
-          <WatchedSummary watched={watched} />
-          <WatchedList watched={watched} />
-        </>
-      )}
-    </div>
   );
 }
 
