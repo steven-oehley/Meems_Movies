@@ -15,6 +15,7 @@ export default function App() {
         <NumResults movies={movies} />
       </Navbar>
       <Main>
+        {/* usage if using children prop */}
         <Box>
           <MovieList movies={movies} />
         </Box>
@@ -22,6 +23,17 @@ export default function App() {
           <WatchedSummary watched={watched} />
           <WatchedList watched={watched} />
         </Box>
+        {/* usage if passing element as prop */}
+
+        {/* <Box element={ <MovieList movies={movies} />}/>
+        <Box element={
+        <>
+          <WatchedSummary watched={watched} />
+          <WatchedList watched={watched} />
+          </>
+          } />
+           */}
+        {/* need fragment is needing to pass in seperate elements */}
       </Main>
     </div>
   );
@@ -104,7 +116,7 @@ function SearchBar() {
 //   );
 // }
 
-// list box and watch box could become one reusable component
+// list box and watch box could become one reusable component - option 1 using children
 
 function Box({ children }) {
   const [isOpen, setIsOpen] = useState(true);
@@ -120,6 +132,23 @@ function Box({ children }) {
     </div>
   );
 }
+
+// list box and watch box could become one reusable component - option 2 explicitely passing in an element
+
+// function Box({ element}) {
+//   const [isOpen, setIsOpen] = useState(true);
+//   return (
+//     <div className="relative w-[42rem] max-w-[42rem] bg-gray-800 rounded-lg overflow-auto">
+//       <button
+//         className="absolute top-2 right-2 h-6 w-6 rounded-full bg-gray-900 text-white font-bold cursor-pointer z-10"
+//         onClick={() => setIsOpen((open) => !open)}
+//       >
+//         {isOpen ? "–" : "+"}
+//       </button>
+//       {isOpen && element}
+//     </div>
+//   );
+// }
 
 function MovieList({ movies }) {
   return (
